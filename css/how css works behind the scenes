@@ -1,0 +1,441 @@
+****The three pillars of writing good html and css****
+
+1. Responsive Design
+
+we build one website that response great on all sizes of screens.
+
+- fluid layout: All containers on the page have their widths defined in percents – meaning that they are completely based on the viewport rather than the initial containing block. A liquid layout will move in and out when you resize your browser window.
+
+ - Media Queries: to present different layouts based on screen sizes/type of screen
+
+ - responsive images
+
+ - correct units
+
+ - desktop-first vs mobile-first
+
+2.Maintainable and scalable code
+
+- clean 
+- Easy-to-understand
+- growth
+- reusable
+- how to organize files
+- how to name classes
+- how to structure html
+
+3. Web Performance 
+- less HTTP requests
+- less code
+- use a CSS preprocessor
+- less images
+- compressed images
+
+
+--What happens to our css code when we load up web page--
+
+first it loads the html -> 
+then parse html (decodes it line by line) -> 
+builds the Document Object Model(DOM) this is where the parsed html is stored
+
+While parsing the html it finds all the stylesheets and loads them ->
+parse the CSS. Two main steps 1.resolve conflicting CSS declarations(cascade) 2. process final CSS values-> 
+Stores the CSS in the Object Model(cssom)
+
+the DOM and CSSOM make up the Render tree ->
+
+to render the page the browser uses the visual formatting model ->
+
+final rendered website
+
+
+--- How CSS is parsed --
+in css there is a selector(the element we want to style) and a declaration block(the styles we want to add)
+
+1. Cascade: Process of combining different stylesheets and resolving conflicts between different CSS rules  and declarations, when more than one rule applies to a certain element 
+ - author (css we write)
+ - user (css the user writes Ex: font size they pick)
+ - browser(user agent Ex: if we dont style an anchor tag it will be default to blue text and underlined )
+
+how does it decide which to use
+
+Importance (weight) > Specificity > source order
+
+Importance- ranking:
+1. User !important declarations
+2. Author !important declarations
+3. Author declarations
+4. user declarations
+5. Default browser declarations
+
+Specificity ranking:
+1. inline styles
+2. ID
+3. classes, pseudo-classes, attribues
+4. Elements, pseude-Elements
+
+inline, id, classes, elements counts and gives a point for each instance.
+(0,0,0,0)
+
+source order:
+The last declaration in the code will overide all other declarations and will be applied
+
+----how css values are processed---
+example code for this section 
+
+<div class="section">
+    <p class="amazing"></p>
+</div>
+
+
+.section {
+    font-size: 1.5rem;
+    width: 280px;
+    background-color: orangered;
+}
+p {
+    width: 140px;
+    background-color: green;
+}
+
+.amazing{
+    width: 66%
+}
+1. Declared values
+ (author delarations)
+   width values read: 140px , 66%;
+   padding: not Specified;
+   font-size(root) none
+   font-size(section) 1.5rem
+   font-size(paragraph) none
+
+   
+2. Cascaded value
+ (after the cascade)
+  Width values read  66%
+  padding: not Specified;
+  font-size(root): 16px (browser default)
+  font-size(section) 1.5rem
+  font-size(paragraph) none
+
+3. Specified vaule
+    (defaulting, is there no cascaded value)
+    Width values read:  66%
+    padding 0px initial value the value used if there is now cascaded value
+    font-size(root): 16px (browser default)
+    font-size(section) 1.5rem
+    font-size(paragraph) 24px it inherits the font of the parent element
+    
+
+4. Computed value
+    (converting relative values to absolute)
+     Width values read 66%
+     padding 0px
+     font-size(root): 16px (browser default)
+     font-size(section) 24px
+     font-size(paragraph) 24px
+
+
+5. Used value 
+    (final calcualtions, bassed on layout)
+    Width values used 184.8px because that is 66% of 280 the parent element
+    padding 0px
+    font-size(root): 16px (browser default)
+    font-size(section) 24px
+    font-size(paragraph) 24px
+
+6. Actual value
+    (browser and device restrictions)
+   width value 185px adjusted for what the browser uses
+   padding 0px
+   font-size(root): 16px (browser default)
+   font-size(section) 24px
+   font-size(paragraph) 24px 
+
+
+
+
+-- how units are converted from relative to absolute (px)--
+
+example code
+
+html, body {
+    font-size: 16px;
+    width: 80vh;
+}
+header {
+    font-size: 150%;
+    padding: 2em;
+    margin-bottom: 10rem;
+    height: 90vh;
+    width: 1000px;
+}
+
+.header-child {
+    font-size: 3em;
+    padding: 10%
+}
+
+Example:
+1. %(font) 150% 
+2. %(lengths) 10%
+3. em(font) 3em
+4. em(lengths) 2em
+5. rem 10 
+6. vh 90
+7. vw 80
+
+
+
+
+how to convert to pixels:
+1.x% * parent's Computed font-size
+2. x% * parent's computed width
+3. x * parent computed font-size  
+4.  x *  current element computed font-size
+5. x * root computed font-size
+6. x * 1% of viewport height
+7. x * 1% of the viewport width
+
+result in pixels
+1. 24px
+2. 100px
+3. 72px (3 * 24)
+4. 48px (2 * 24)
+5. 160px (10 * 16)
+6. 90%
+7. 80%
+
+
+why do we use  rems and ems:
+when we change font sizes we will automatically change lengths making it more fluid
+
+
+when do we use rems and ems: 
+
+Use em units for sizing that should scale depending on the font size of an element other than the root.
+Use rem units for sizing that doesn’t need em units, and that should scale depending on browser font size settings.
+Use rem units unless you’re sure you need em units, including on font sizes.
+Use rem units on media queries
+Don’t use em or rem in multi column layout widths - use % instead.
+Don’t use em or rem if scaling would unavoidably cause a layout element to break.
+
+---Inheritance in css---
+
+example code
+
+.parent{
+    font-size 280px
+    line-height: 150%;
+}
+
+.child{
+    font-size: 25px
+}
+
+
+Every css propert must have a value
+
+is there a cascaded value? 
+
+yes: specified value = cascaded value
+no: is the property inherited? (specific to each property)
+    yes: specified value = computed value of the parent element
+    no: specified value = initial value (specific to each property)
+
+
+- properties realated to text are inherited: font-size font-family color etc
+- the computed value of a property is what gets inherited, not the declared value.
+- Inheritance of a property only works if no one declares a value for that property
+- the inherit keyword forces inheritance on a certian property
+- The initial key word resets a property to its initial value.
+
+
+--The visual formatting model--
+definition: Algorithm that calculates boxes and determines the layout of these boxes, for each element in the render tree, in order to determine the final layout of the page. 
+
+takes account all these factors 
+
+- Dimensions of boxes: the box Model
+- Box type: inline, block and inline-block
+- Positioning scheme: floats and Positioning
+- Stacking contexts
+- other elements in the render tree;
+- Viewport size, dimensions of images, etc
+
+--The Box model--
+Content: text, images, etc;
+Padding: transparent area around the content, inside of the box
+Border: goes around the padding and the content
+Margin: space between boxes outside the box
+Fill area: area that gets filled with background color or background image
+
+Box Model Height and widths
+total width = right border + right padding + specified width + left padding + left border
+Total height = top border + top padding + specified height + bottom padding + bottom border
+Example: height = 0 + 20px + 100px + 20px + 0 = 140px
+
+box-sizing: border-box: The height and the width will be defined for the entire box and not just the content area this means that the padding and border that we Specified will reduce the entire width of the content area. 
+total width =   specified width
+Total height =  specified height
+height = 100px = 100px
+
+
+--Block-level boxes--
+- Elements formatted visually as blocks
+- 100% of parent's width
+- Vertically, one after another
+- Box-model applies as showed
+
+display: block
+display: flex
+display: list-item
+diplay: table 
+
+this boxes will always take up as much space as possible which is usually 100% of it's parents width and create line breaks after and before it meaning blocks are formatted vertically one after another
+
+--Inline boxes--
+- content is distributed in lines
+- Occupies only content's space
+- No line-breaks they just sit inside their block level parent element
+- No heights and widths
+- Paddings and margins only horizontal (left and right)
+
+display: inline
+
+--inline-block boxes --
+
+- A mix of block and inline 
+- Occupies ony content's space
+- No line-breaks
+- Box-model applies as shown
+
+
+display: inline-block
+
+
+--Positioning Schemes--
+
+Normal flow 
+- Default positioning scheme
+- Not floated
+- Not absolutely positioned
+- Elements laid out according to their source order 
+
+Default
+position: relative
+
+Floats
+- Element is removed frome the normal flow;
+- Text and inline elements will wrap around the floated element
+- The container will not adjust its height to the element we use clear fix for this issue
+
+float: left
+float: right
+
+
+Absolute Positioning 
+- Elemenet is removed from the normal flow
+- No impact on surrounding content or elements
+- We use top, bottom, left, and right to offset the element from its relatively positioned container.
+
+position: absolute 
+position: fixed 
+
+-- Stacking Contexts --
+
+Is what determines which which order elements are rendered on the page
+
+stacking contexts are like layers that preform a stack 
+
+z-index is the most popular for doing this 
+
+Top
+z-index: 3
+position: relative
+
+middle
+z-index: 2
+position: absolute
+
+bottom
+z-index: 1 
+position: relative
+
+opacity different from 1
+transform
+filter
+
+create stacking content
+
+
+-- The Think Build - Architect Mindset --
+
+Maintainable and scalable code
+
+Think: Think about the layout of your webpage or web app before writing code
+
+Component-Driven Design
+- Modular building blocks that make up interfaces
+- Held together by the layout of the page
+- reusable across a project, and between different projects
+- Independent, allowing us to use them anywhere on the page 
+
+Build: Build your layout in html and Css with a consistent structure for naming classes
+
+BEM
+- Block Element Modifier 
+- Block: is a stand alone component that is meaningful on its own
+- Element: part of a block that has no standalone meaning
+- Modifier: a different version of a block or an element
+
+
+
+Architect: Create a logical architcture for your Css with files and folders
+
+The 7-1 pattern: 7 different folder for partial Sass files, and 1 main Sass file to import all other files into a compiled Css Stylesheet.
+
+The seven folders
+- base/ - basic product definitions 
+- components/ - one file for each component
+- layout - define over a layout of the project
+- pages/ - where we have styles for specific pages
+- themes/ - if you want to impelement different visual themes 
+- abstracts/ - where we put code that doesn't out put any css such a varibles or mixins 
+- vendors/ - all third party css goes
+
+
+---What is Sass--
+
+Sass: is a CSS preprocessor, an extension of CSS that adds power and elegance to the basic language.
+
+Sass source code > Sass compiler > compiled css code
+
+instead of writing regular css code in sass files, we write sass code in sass files
+
+Variables: for reusable values such as colors, font-sizes, spacing etc,
+
+Nesting: to nest selectors inside of one another, allowing us to write less code
+
+Operators: for mathematical operations right inside Css
+
+Partials and Imports: to write Css in different files and importing them all into one single file 
+
+Mixins: to write reusable pieces of Css code
+
+Functions: similar to mixins, with the difference that they produce a value that can then be used
+
+Extends: to make different selectors inherit declarations that are common to all of them 
+
+Control directives: for writing complex code using conditionals and loops(not covered in this course)
+
+There are two sass syntaxes 
+
+Sass syntaxes
+ uses indentation
+
+Scss syntax
+uses brackets and semi colons
+
+
+
