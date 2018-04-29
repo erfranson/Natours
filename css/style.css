@@ -1,0 +1,252 @@
+/*
+COLORS:
+
+Light green: #7ed56f
+Medium green: #55c57a
+Dark green: #28b485
+
+*/
+
+/*reset*/
+*,
+*::after,
+*::before{
+	margin: 0;
+	padding: 0;
+	/*changes the box model where the border and padding are no longer added to the total width or height that are is specified*/
+	box-sizing: inherit;
+	
+}
+html{
+	font-size: 62.5%;
+}
+body{
+	/*properties related to font are inherited*/
+	font-family: "Lato", sans-serif;
+	font-weight: 400;
+	/* font-size: 16px; */
+	line-height: 1.7;
+	color: #777;
+	padding: 3rem;
+	box-sizing: border-box; 
+}
+
+.header {
+	/* at every point of this element should be 95% of the viewport height */
+	height: 95vh;
+	/* you can set gradients to make colors gradually change to other colors */
+	background-image: linear-gradient(
+		to right bottom,
+		rgba(126, 213, 111, 0.8),
+		rgba(40, 180, 131, 0.8)),
+		 url(../img/hero.jpg);
+	background-size: cover;
+	/* whatever the viewport is the background image will stay at the top of the container if set to top*/
+	/* whatever the viewport is the background image will stay at the bottom of the container if set to bottom */
+	/* whatever the viewport is the background image will stay at the center of the container if set to center */
+	background-position: top;
+	/* to clip a picture into a shape we want we need to define the x and y axis and the % we want it to change */
+	position: relative;
+	
+	/* polygon(x y, x y, x y, x y)  (top left, top right, bottom right, bottom left)*/
+	clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+}
+
+.header__logo-box{
+	position: absolute;
+	/* the ref of where we count 40px to the left and 40px from the top is the parent element that has its position set to relative
+	 */
+
+	top: 4rem;
+	left: 4rem;
+}
+
+.header__logo{
+	height: 3.5rem;
+}
+
+
+/* .logo-box:hover .logo {
+	animation: moveInRight 1s ease-out;
+} */
+.header__text-box{
+	position:absolute;
+	left: 50%;
+	top: 40%;
+	
+	/* Defines a 2D translation on the x and y axis */
+	/* transform property allows you move an element in the x or y direction */
+	transform: translate(-50%, -50%);
+	text-align: center;
+
+}
+
+.heading-primary{
+	color: #fff;
+	text-transform: uppercase;
+
+	/* to fix the shakey issue of an animation you have to set the backface to hidden */
+	backface-visibility: hidden;
+	margin-bottom: 6rem;
+}
+.heading-primary--main{
+	display:block;
+	font-size: 6rem;
+	font-weight: 400;
+	letter-spacing: 3.5rem;
+	/* to apply animations to an element, you that to specify animation name and animation-duration  */
+	animation-name: moveInLeft;
+	animation-duration: 1s;
+
+	/* css property specifies how a css animation should progress over the duration of each cycle */
+	/* ease-out and ease-in are the probably the most used */
+	animation-timing-function: ease-out;
+
+	/* you can also loop the animation with animation-iteration-count */
+	/* animation-iteration-count: 3; */
+	/* you can also delay an animation using delay property */
+	/* animation-delay: 3s; */
+}
+
+
+.heading-primary--sub{
+	display: block;
+	font-size: 2rem;
+	font-weight: 700;
+	letter-spacing: 1.75rem;
+	animation: moveInRight 1s ease-out;
+} 
+
+/* there are mostly 2 main ways to do css animations
+ */
+ /* First way is keyframes */
+@keyframes moveInLeft{
+	/* put the starting % of the animation then the ending % animation
+	 */
+	/* you can put multiple ainmations in the middle by specifying a % */
+	/* you usually only want to animate to properties. opacity and the transform property */
+	0%{
+		opacity: 0;
+		transform: translateX(-10rem);
+	}
+
+	/* if you want to rotate elements you can us transfom rotate with deg to specify */
+	/* 60%{
+		transform: rotate(-120deg);
+	} */
+	80%{
+		transform: translateX(1rem);
+	}
+
+	100%{
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+
+@keyframes moveInRight{
+	/* put the starting % of the animation then the ending % animation
+	 */
+	/* you can put multiple ainmations in the middle by specifying a % */
+	/* you usually only want to animate to properties. opacity and the transform property */
+	0%{
+		opacity: 0;
+		transform: translateX(10rem);
+	}
+
+	80%{
+		transform: translateX(-1rem);
+	}
+
+	100%{
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+
+@keyframes moveInButton{
+	/* put the starting % of the animation then the ending % animation
+	 */
+	/* you can put multiple ainmations in the middle by specifying a % */
+	/* you usually only want to animate to properties. opacity and the transform property */
+	0%{
+		opacity: 0;
+		transform: translateY(10rem);
+	}
+
+
+	100%{
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+
+
+.btn:link,
+.btn:visited {
+	text-transform: uppercase;
+	text-decoration: none;
+	padding: 1.5rem 4rem;
+	display: inline-block;
+	border-radius: 10rem;
+	/* this is the second way to animate element */
+	/* you can specify what properties you want to animate, but if you aren't sure you can use all */
+	/* you have to put the transition on the initial state */
+	transition: all .2s;
+	/* An element with position relative; is positioned relative to its normal position. */
+	position: relative;
+	font-size: 1.6rem;
+	
+	
+}
+
+.btn:hover {
+	/* to go up we need a negative value to go down we need a positive  */
+	transform: translateY(-3px);
+	/* box shadow is x y blur and color */
+	box-shadow: 0 1rem 2rem rgba(0,0,0,.2);
+}
+
+.btn:active {
+	transform: translateY(-1px);
+	box-shadow: 0 .5rem 1rem rgba(0,0,0,.2);
+}
+
+.btn--white {
+	background-color: #fff;
+	color: #777;
+}
+
+.btn::after {
+	/* to make a after element appear you have to specify its content prop and its display */
+	content: "";
+	display: inline-block;
+	/* the after peusdo element appears an child of the element so specify its height and width  */
+	height: 100%;
+	width: 100%;
+	border-radius: 10rem;
+	/* An element with position absolute; is positioned relative to the nearest positioned ancestor (instead of positioned relative to the viewport, like fixed). */
+	position: absolute;
+	top: 0;
+	left: 0;
+	z-index: -1;
+	transition: all .4s;
+}
+
+.btn--white::after {
+	background-color: #fff;
+}
+
+.btn:hover::after {
+	/* increase the element 2 is double, 3 is triple */
+	transform: scaleX(1.4) scaleY(1.6);
+	
+	opacity: 0;
+}
+
+.btn--animated{
+	animation: moveInButton .5s ease-out .75s;
+	/* property specifies how a CSS animation should apply styles to its target before and after its execution. */
+	animation-fill-mode: backwards;
+}
+
