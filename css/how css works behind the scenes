@@ -438,4 +438,20 @@ Scss syntax
 uses brackets and semi colons
 
 
+Responsive design principles
 
+1. Fluid Grids and Layouts
+    To Allow content to easily adapt to the cuurrent viewport width used to browse the website. Uses % rather than px for all layout -realted lengths.
+2. Flexible/Responsive images
+    Images behave differently than text content, and sow we need to ensure that they also adapt nicely to the current viewport. 
+
+3. Media Queries
+    To change styles on certain viewport widths (breakpoints), allowing us to create different version of our website for different widths. 
+
+There are three major ways of laying out a website or app
+
+Float layouts
+
+Flexbox 
+
+Css grid

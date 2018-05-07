@@ -1,0 +1,70 @@
+.btn{
+	&:link,
+	&:visited {
+		text-transform: uppercase;
+		text-decoration: none;
+		padding: 1.5rem 4rem;
+		display: inline-block;
+		border-radius: 10rem;
+		/* this is the second way to animate element */
+		/* you can specify what properties you want to animate, but if you aren't sure you can use all */
+		/* you have to put the transition on the initial state */
+		transition: all .2s;
+		/* An element with position relative; is positioned relative to its normal position. */
+		position: relative;
+		font-size: 1.6rem;
+	}
+	
+	&:hover {
+		/* to go up we need a negative value to go down we need a positive  */
+		transform: translateY(-3px);
+		/* box shadow is x y blur and color */
+		box-shadow: 0 1rem 2rem rgba($color-black,.2);
+
+		&::after {
+			/* increase the element 2 is double, 3 is triple */
+			transform: scaleX(1.4) scaleY(1.6);
+			
+			opacity: 0;
+		}
+	}
+
+	&:active {
+		transform: translateY(-1px);
+		box-shadow: 0 .5rem 1rem rgba($color-black,.2);
+	}
+
+	&--white {
+		background-color:$color-white;
+		color: $color-grey-dark;
+
+		&::after {
+			background-color: $color-white;
+		}
+	}
+
+
+	&::after {
+		/* to make a after element appear you have to specify its content prop and its display */
+		content: "";
+		display: inline-block;
+		/* the after peusdo element appears an child of the element so specify its height and width  */
+		height: 100%;
+		width: 100%;
+		border-radius: 10rem;
+		/* An element with position absolute; is positioned relative to the nearest positioned ancestor (instead of positioned relative to the viewport, like fixed). */
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -1;
+		transition: all .4s;
+	}
+
+
+	&--animated{
+		animation: moveInButton .5s ease-out .75s;
+		/* property specifies how a CSS animation should apply styles to its target before and after its execution. */
+		animation-fill-mode: backwards;
+	}	
+
+}

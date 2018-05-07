@@ -1,0 +1,48 @@
+.header {
+	/* at every point of this element should be 95% of the viewport height */
+	height: 95vh;
+	/* you can set gradients to make colors gradually change to other colors */
+	background-image: linear-gradient(
+		to right bottom,
+		rgba($primary-color-light, 0.8),
+		rgba($primary-color-dark, 0.8)),
+		 url(../img/hero.jpg);
+	background-size: cover;
+	/* whatever the viewport is the background image will stay at the top of the container if set to top*/
+	/* whatever the viewport is the background image will stay at the bottom of the container if set to bottom */
+	/* whatever the viewport is the background image will stay at the center of the container if set to center */
+	background-position: top;
+	/* to clip a picture into a shape we want we need to define the x and y axis and the % we want it to change */
+	position: relative;
+	
+	/* polygon(x y, x y, x y, x y)  (top left, top right, bottom right, bottom left)*/
+	clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+
+	&__logo-box{
+		position: absolute;
+	/* the ref of where we count 40px to the left and 40px from the top is the parent element that has its position set to relative
+	 */
+		top: 4rem;
+		left: 4rem;
+	}
+
+	&__logo{
+		height: 3.5rem;
+	}
+	
+	
+	/* .logo-box:hover .logo {
+		animation: moveInRight 1s ease-out;
+	} */
+	&__text-box{
+		position:absolute;
+		left: 50%;
+		top: 40%;
+		
+		/* Defines a 2D translation on the x and y axis */
+		/* transform property allows you move an element in the x or y direction */
+		transform: translate(-50%, -50%);
+		text-align: center;
+	
+	}
+}

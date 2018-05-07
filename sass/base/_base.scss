@@ -1,0 +1,18 @@
+/*reset*/
+
+*,
+*::after,
+*::before{
+	margin: 0;
+	padding: 0;
+	/*changes the box model where the border and padding are no longer added to the total width or height that are is specified*/
+	box-sizing: inherit;
+	
+}
+html{
+    // this defines what one rem is
+	font-size: 62.5%;
+}
+body{
+	box-sizing: border-box; 
+}

@@ -1,0 +1,63 @@
+/* there are mostly 2 main ways to do css animations
+ */
+ /* First way is keyframes */
+ @keyframes moveInLeft{
+	/* put the starting % of the animation then the ending % animation
+	 */
+	/* you can put multiple ainmations in the middle by specifying a % */
+	/* you usually only want to animate to properties. opacity and the transform property */
+	0%{
+		opacity: 0;
+		transform: translateX(-10rem);
+	}
+
+	/* if you want to rotate elements you can us transfom rotate with deg to specify */
+	/* 60%{
+		transform: rotate(-120deg);
+	} */
+	80%{
+		transform: translateX(1rem);
+	}
+
+	100%{
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+
+@keyframes moveInRight{
+	/* put the starting % of the animation then the ending % animation
+	 */
+	/* you can put multiple ainmations in the middle by specifying a % */
+	/* you usually only want to animate to properties. opacity and the transform property */
+	0%{
+		opacity: 0;
+		transform: translateX(10rem);
+	}
+
+	80%{
+		transform: translateX(-1rem);
+	}
+
+	100%{
+		opacity: 1;
+		transform: translate(0);
+	}
+}
+
+@keyframes moveInButton{
+	/* put the starting % of the animation then the ending % animation
+	 */
+	/* you can put multiple ainmations in the middle by specifying a % */
+	/* you usually only want to animate to properties. opacity and the transform property */
+	0%{
+		opacity: 0;
+		transform: translateY(10rem);
+	}
+
+
+	100%{
+		opacity: 1;
+		transform: translate(0);
+	}
+}
